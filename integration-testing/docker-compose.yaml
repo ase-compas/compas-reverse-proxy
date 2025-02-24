@@ -1,0 +1,62 @@
+# SPDX-FileCopyrightText: 2025 BearingPoint GmbH
+#
+# SPDX-License-Identifier: Apache-2.0
+
+version: "3.9"
+
+services:
+
+  compas-keycloak:
+    build:
+      context: ./keycloak
+    labels:
+      compas: true
+    ports:
+      - "8089:8080"
+    environment:
+      - KC_HOSTNAME=http://127.0.0.1/auth/
+      - KC_HTTP_RELATIVE_PATH=auth
+      - KC_HTTP_ENABLED=true
+      - KC_PROXY_HEADERS=xforwarded
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/auth/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      compas_reverse_proxy_default:
+        aliases:
+          - keycloak
+
+  compas-reverse-proxy:
+    labels:
+      compas: true
+    image: "lfenergy/compas-reverse-proxy:1.0.3"
+    ports:
+      - "80:80"
+    depends_on:
+      - http-echo
+    networks:
+      compas_reverse_proxy_default:
+
+  http-echo:
+    labels:
+      compas: false
+    image: "solsson/http-echo"
+    ports:
+      - "1080:8080"
+    environment:
+      - PORT=8080
+    networks:
+      compas_reverse_proxy_default:
+        aliases:
+          - open-scd
+          - scl-data-service
+          - cim-mapping
+          - scl-auto-alignment
+          - scl-validator
+
+networks:
+  compas_reverse_proxy_default:

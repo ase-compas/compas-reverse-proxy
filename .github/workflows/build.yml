@@ -38,7 +38,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.iocompas-reverse-proxy/compas-reverse-proxy
+          images: ghcr.io/compas-reverse-proxy/compas-reverse-proxy
 
       - name: Build and push Docker image
         id: push

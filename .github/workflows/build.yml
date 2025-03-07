@@ -25,7 +25,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.DOCKER_USERNAME }}/my-image
+          images: compas-reverse-proxy/compas-reverse-proxy
 
       - name: Build and push Docker image
         id: push

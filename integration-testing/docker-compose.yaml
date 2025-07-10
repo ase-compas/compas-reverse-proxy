@@ -33,7 +33,7 @@ services:
   compas-reverse-proxy:
     labels:
       compas: true
-    image: "lfenergy/compas-reverse-proxy"
+    image: "ase-compas/compas/compas-reverse-proxy"
     ports:
       - "80:80"
     depends_on:

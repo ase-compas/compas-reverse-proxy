@@ -4,5 +4,5 @@
 ## Build docker image
 
 ```
-    docker build -t lfenergy/compas-reverse-proxy .
+    docker build -t ase-compas/compas/compas-reverse-proxy .
 ```

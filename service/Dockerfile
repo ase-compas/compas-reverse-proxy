@@ -1,4 +1,4 @@
-FROM openresty/openresty:1.25.3.2-5-alpine-fat
+FROM openresty/openresty:1.25.3.2-alpine-fat
 
 RUN mkdir /var/log/nginx
 
